@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회의록 - 마케팅팀 주간회의</title>
+  <!-- FOUC 방지 -->
+  <script>(function(){var t=localStorage.getItem('jarvis-theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── CSS 변수 (라이트 모드) ── */
+    :root {
+      --bg:            #dde3f5;
+      --card-bg:       rgba(255,255,255,0.62);
+      --card-border:   rgba(255,255,255,0.85);
+      --card-shadow:   0 8px 32px rgba(60,40,180,0.10), 0 2px 8px rgba(0,0,0,0.04);
+      --text-1:        #1a1a2e;
+      --text-2:        #4b5563;
+      --text-3:        #9ca3af;
+      --accent:        #5b72f2;
+      --accent-soft:   rgba(91,114,242,0.12);
+      --accent-glow:   rgba(91,114,242,0.36);
+      --orb-op:        0.22;
+      --header-bg:     rgba(255,255,255,0.70);
+      --header-border: rgba(200,210,240,0.65);
+      --row-alt:       rgba(0,0,0,0.02);
+      --row-border:    rgba(0,0,0,0.055);
+      --tag-bg:        rgba(0,0,0,0.06);
+      --tr: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    /* ── CSS 변수 (다크 모드) ── */
+    [data-theme="dark"] {
+      --bg:            #0f0f23;
+      --card-bg:       rgba(255,255,255,0.055);
+      --card-border:   rgba(255,255,255,0.09);
+      --card-shadow:   0 8px 32px rgba(0,0,0,0.50), 0 2px 8px rgba(0,0,0,0.30);
+      --text-1:        #e0e0e0;
+      --text-2:        #a0a0b8;
+      --text-3:        #585872;
+      --accent:        #818cf8;
+      --accent-soft:   rgba(129,140,248,0.13);
+      --accent-glow:   rgba(129,140,248,0.38);
+      --orb-op:        0.13;
+      --header-bg:     rgba(15,15,35,0.82);
+      --header-border: rgba(255,255,255,0.07);
+      --row-alt:       rgba(255,255,255,0.02);
+      --row-border:    rgba(255,255,255,0.055);
+      --tag-bg:        rgba(255,255,255,0.08);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-1);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: var(--tr);
+    }
+
+    /* ── 배경 오브 ── */
+    .bg-wrap { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(110px); opacity: var(--orb-op); transition: opacity 0.35s; }
+    .o1 { width: 700px; height: 700px; background: #7c3aed; top: -260px; left: -200px; }
+    .o2 { width: 600px; height: 600px; background: #ec4899; bottom: -200px; right: -180px; }
+    .o3 { width: 460px; height: 460px; background: #3b82f6; top: 45%; left: 55%; transform: translate(-50%,-50%); }
+
+    /* ── 헤더 ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--header-bg);
+      backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+      border-bottom: 1px solid var(--header-border);
+      padding: 0 28px; height: 62px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: var(--tr);
+    }
+    .back-link {
+      text-decoration: none; color: var(--accent);
+      font-size: 13.5px; font-weight: 600;
+      display: flex; align-items: center; gap: 5px;
+      padding: 6px 12px; border-radius: 10px;
+      transition: background 0.2s, color 0.35s;
+    }
+    .back-link:hover { background: var(--accent-soft); }
+    .header-center { font-size: 15.5px; font-weight: 700; color: var(--text-1); transition: color 0.35s; }
+    .theme-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 7px 15px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 50px; cursor: pointer;
+      font-size: 12.5px; font-weight: 600; color: var(--text-1);
+      box-shadow: var(--card-shadow);
+      transition: var(--tr), transform 0.2s;
+      font-family: inherit;
+    }
+    .theme-btn:hover { transform: translateY(-1px); }
+
+    /* ── 네비게이션 탭 메뉴 ── */
+    .nav-tabs {
+      position: sticky; top: 62px; z-index: 99;
+      background: var(--header-bg);
+      backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+      border-bottom: 1px solid var(--header-border);
+      padding: 0 28px;
+      display: flex; align-items: center; gap: 0;
+      overflow-x: auto;
+      transition: var(--tr);
+    }
+    .nav-tab {
+      padding: 12px 18px;
+      font-size: 13px; font-weight: 600;
+      color: var(--text-3);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-tab:hover {
+      color: var(--text-2);
+    }
+    .nav-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── 메인 ── */
+    .page {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto;
+      padding: 28px;
+    }
+
+    /* ── 제목 구역 ── */
+    .doc-title { text-align: center; margin-bottom: 32px; }
+    .doc-title h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; transition: color 0.35s; }
+    .doc-date { font-size: 13px; color: var(--text-3); transition: color 0.35s; }
+
+    /* ── 카드 ── */
+    .section {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--card-shadow);
+      transition: var(--tr);
+    }
+    .section h2 {
+      font-size: 15px; font-weight: 700;
+      color: var(--accent); margin-bottom: 16px;
+      text-transform: uppercase; letter-spacing: 0.6px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--row-border);
+      transition: color 0.35s;
+    }
+
+    /* ── 기본 정보 ── */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .info-item { }
+    .info-label {
+      font-size: 12px; color: var(--text-3);
+      font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 6px;
+      transition: color 0.35s;
+    }
+    .info-value {
+      font-size: 14px; font-weight: 600;
+      color: var(--text-1); transition: color 0.35s;
+    }
+    .attendees {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 8px;
+    }
+    .attendee-tag {
+      background: var(--tag-bg); color: var(--text-2);
+      font-size: 12px; padding: 4px 12px;
+      border-radius: 10px; transition: var(--tr);
+    }
+
+    /* ── 논의 내용 ── */
+    .summary-text {
+      font-size: 13.5px; line-height: 1.8;
+      color: var(--text-2);
+      transition: color 0.35s;
+    }
+    .summary-text p { margin-bottom: 12px; }
+    .summary-text p:last-child { margin-bottom: 0; }
+
+    /* ── 액션 아이템 테이블 ── */
+    .action-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 13px;
+    }
+    .action-table thead {
+      background: var(--accent-soft);
+      border-bottom: 1px solid var(--row-border);
+      transition: background 0.35s;
+    }
+    .action-table th {
+      padding: 12px 14px; text-align: left;
+      font-weight: 700; color: var(--accent);
+      transition: color 0.35s;
+    }
+    .action-table tbody tr {
+      border-bottom: 1px solid var(--row-border);
+      transition: border-color 0.35s;
+    }
+    .action-table tbody tr:nth-child(odd) {
+      background: var(--row-alt);
+    }
+    .action-table td {
+      padding: 13px 14px; color: var(--text-2);
+      transition: color 0.35s;
+    }
+    .action-table tr:last-child td { border-bottom: none; }
+
+    .action-assignee {
+      font-weight: 600; color: var(--text-1);
+      transition: color 0.35s;
+    }
+    .action-deadline {
+      font-size: 12px; color: var(--text-3);
+      font-weight: 500;
+      transition: color 0.35s;
+    }
+
+    /* ── 인쇄 스타일 ── */
+    @media print {
+      body { background: white; }
+      .bg-wrap, .theme-btn, header { display: none; }
+      .page { padding: 40px; max-width: 100%; }
+      .section { box-shadow: none; border-color: #ddd; }
+      header { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-wrap">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+  </div>
+
+  <header>
+    <a href="../misc/index.html" class="back-link">← 메인</a>
+    <div class="header-center">회의록</div>
+    <button class="theme-btn" onclick="toggleVoice()">
+      <span id="vi">🔊</span><span id="vl">음성 켜기</span>
+    </button>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <span id="ti">🌙</span><span id="tl">다크 모드</span>
+    </button>
+  </header>
+
+  <nav class="nav-tabs">
+    <a href="../work/dashboard.html" class="nav-tab">📊 대시보드</a>
+    <a href="meeting-result.html" class="nav-tab active">📋 회의록</a>
+    <a href="../misc/chart.html" class="nav-tab">📈 매출 현황</a>
+    <a href="../misc/diagram.svg" class="nav-tab">🔄 업무 프로세스</a>
+    <a href="report.html" class="nav-tab">🔍 사이트 분석</a>
+  </nav>
+
+  <div class="page">
+    <div class="doc-title">
+      <h1>마케팅팀 주간회의</h1>
+      <div class="doc-date">2026년 3월 10일 (월)</div>
+    </div>
+
+    <!-- 회의 기본 정보 -->
+    <div class="section">
+      <h2>📋 회의 정보</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">일시</div>
+          <div class="info-value">2026년 3월 10일 (월)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">장소</div>
+          <div class="info-value">마케팅팀 회의실</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">참석자</div>
+          <div class="attendees">
+            <span class="attendee-tag">김대리</span>
+            <span class="attendee-tag">이과장</span>
+            <span class="attendee-tag">박사원</span>
+            <span class="attendee-tag">정팀장</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 논의 내용 요약 -->
+    <div class="section">
+      <h2>💬 논의 내용 요약</h2>
+      <div class="summary-text">
+        <p>
+          지난주 SNS 광고 캠페인 A/B 테스트 결과 B안(영상형)이 A안(이미지형) 대비 클릭률 2.3배 높은 성과를 보였으며,
+          이를 기반으로 영상 광고 3개 추가 제작을 추진하기로 결정했습니다.
+        </p>
+        <p>
+          인플루언서 협업은 3곳에 제안서를 발송한 결과 푸드스타일리 김OO로부터 회신이 들어왔으며,
+          이번 주 금요일까지 미팅 일정을 확정하기로 했습니다.
+        </p>
+        <p>
+          4월 신제품 런칭에 맞춰 사전 티저 캠페인을 3월 넷째 주부터 시작할 예정이며,
+          영상 제작비 추가 200만원 예산 조정이 필요한 것으로 파악되었습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 액션 아이템 -->
+    <div class="section">
+      <h2>✓ 액션 아이템</h2>
+      <table class="action-table">
+        <thead>
+          <tr>
+            <th style="width:18%">담당자</th>
+            <th style="width:48%">할 일</th>
+            <th style="width:20%">기한</th>
+            <th style="width:14%">상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="action-assignee">박사원</td>
+            <td>B안 기반으로 영상 광고 3개 추가 제작</td>
+            <td class="action-deadline">~3월 14일</td>
+            <td>진행중</td>
+          </tr>
+          <tr>
+            <td class="action-assignee">이과장</td>
+            <td>인플루언서 미팅 일정 잡기 (푸드스타일리 김OO)</td>
+            <td class="action-deadline">~3월 14일</td>
+            <td>대기</td>
+          </tr>
+          <tr>
+            <td class="action-assignee">김대리</td>
+            <td>3월 프로모션 기획안 초안 작성</td>
+            <td class="action-deadline">~3월 12일</td>
+            <td>진행중</td>
+          </tr>
+          <tr>
+            <td class="action-assignee">박사원</td>
+            <td>경쟁사 C사 신규 캠페인 분석</td>
+            <td class="action-deadline">~3월 16일</td>
+            <td>대기</td>
+          </tr>
+          <tr>
+            <td class="action-assignee">정팀장</td>
+            <td>3월 프로모션 기획안 검토</td>
+            <td class="action-deadline">다음 회의</td>
+            <td>예정</td>
+          </tr>
+          <tr>
+            <td class="action-assignee">전사</td>
+            <td>4월 신제품 런칭 사전 티저 캠페인 준비</td>
+            <td class="action-deadline">~3월 22일</td>
+            <td>준비</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 참고사항 -->
+    <div class="section">
+      <h2>📌 참고사항</h2>
+      <div class="summary-text">
+        <p>
+          <strong>3월 프로모션:</strong> 봄맞이 할인 이벤트로 3월 20일~31일 진행 예정
+        </p>
+        <p>
+          <strong>신제품 런칭:</strong> 4월 첫째 주를 목표로 3월 넷째 주부터 사전 티저 시작
+        </p>
+        <p>
+          <strong>영상 광고:</strong> B안(영상형) 기반으로 총 3개 추가 제작, 예산 200만원 추가 필요
+        </p>
+        <p>
+          <strong>다음 회의:</strong> 3월 17일 (월) 오전 10시
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function getTheme() { return localStorage.getItem('jarvis-theme') || 'light'; }
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      document.getElementById('ti').textContent = t === 'dark' ? '☀️' : '🌙';
+      document.getElementById('tl').textContent = t === 'dark' ? '라이트 모드' : '다크 모드';
+    }
+    function toggleTheme() {
+      var next = getTheme() === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('jarvis-theme', next);
+      applyTheme(next);
+      speak('Display mode changed to ' + (next === 'dark' ? 'dark' : 'light') + ', Sir.', 'normal');
+    }
+    var jarvisSpeaking = false;
+    function getVoiceEnabled() { return localStorage.getItem('jarvis-voice-enabled') !== 'false'; }
+    function applyVoice(enabled) {
+      localStorage.setItem('jarvis-voice-enabled', enabled ? 'true' : 'false');
+      document.getElementById('vi').textContent = enabled ? '🔊' : '🔇';
+      document.getElementById('vl').textContent = enabled ? '음성 켜기' : '음성 끄기';
+    }
+    function toggleVoice() {
+      var next = !getVoiceEnabled();
+      applyVoice(next);
+      if(next) speak('JARVIS voice system activated, Sir.', 'high');
+    }
+    function speak(text, priority) {
+      if(!getVoiceEnabled() || !('speechSynthesis' in window)) return;
+      if(jarvisSpeaking) return;
+      jarvisSpeaking = true;
+      var utterance = new SpeechSynthesisUtterance(text);
+      utterance.language = 'en-GB';
+      utterance.pitch = 0.85;
+      utterance.rate = 0.75;
+      utterance.volume = 1.0;
+      var voices = window.speechSynthesis.getVoices();
+      var britishVoice = voices.find(function(v) { return v.lang === 'en-GB' || (v.lang.includes('en') && v.name.includes('Google')); });
+      if(!britishVoice) britishVoice = voices.find(function(v) { return v.lang.includes('en'); });
+      if(britishVoice) utterance.voice = britishVoice;
+      utterance.onend = function() { jarvisSpeaking = false; };
+      window.speechSynthesis.speak(utterance);
+    }
+    function highlightCurrentTab() {
+      var currentPage = window.location.pathname;
+      var tabs = document.querySelectorAll('.nav-tab');
+      tabs.forEach(function(tab) {
+        tab.classList.remove('active');
+        var href = tab.getAttribute('href');
+        if(currentPage.includes('meeting-result.html') && href.includes('meeting-result.html')) {
+          tab.classList.add('active');
+        } else if(currentPage.includes('dashboard.html') && href.includes('dashboard.html')) {
+          tab.classList.add('active');
+        } else if(currentPage.includes('chart.html') && href.includes('chart.html')) {
+          tab.classList.add('active');
+        } else if(currentPage.includes('diagram.svg') && href.includes('diagram.svg')) {
+          tab.classList.add('active');
+        } else if(currentPage.includes('report.html') && href.includes('report.html')) {
+          tab.classList.add('active');
+        }
+      });
+    }
+    applyTheme(getTheme());
+    highlightCurrentTab();
+    applyVoice(getVoiceEnabled());
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fff0f5;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- 파스텔 색상 정의 -->
+    <linearGradient id="pastel1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd9e8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffb3d9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pastel2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffe8b3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd699;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pastel3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#b3f0e8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#99e8d9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pastel4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#d9ccff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c9b3ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pastel5" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#b3d9ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#99ccff;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- 그림자 필터 -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- 배경 채우기 -->
+  <rect width="800" height="200" fill="url(#bgGrad)" />
+
+  <!-- 화살표 마커 정의 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#999" />
+    </marker>
+  </defs>
+
+  <!-- 단계 1: 기획 -->
+  <g>
+    <rect x="30" y="50" width="120" height="100" rx="16" fill="url(#pastel1)" stroke="#ffb3d9" stroke-width="2" filter="url(#shadow)" />
+    <text x="90" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">기획</text>
+    <text x="90" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Planning</text>
+  </g>
+
+  <!-- 화살표 1 → 2 -->
+  <line x1="150" y1="100" x2="175" y2="100" stroke="#999" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- 단계 2: 제작 -->
+  <g>
+    <rect x="175" y="50" width="120" height="100" rx="16" fill="url(#pastel2)" stroke="#ffd699" stroke-width="2" filter="url(#shadow)" />
+    <text x="235" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">제작</text>
+    <text x="235" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Production</text>
+  </g>
+
+  <!-- 화살표 2 → 3 -->
+  <line x1="295" y1="100" x2="320" y2="100" stroke="#999" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- 단계 3: 검토 -->
+  <g>
+    <rect x="320" y="50" width="120" height="100" rx="16" fill="url(#pastel3)" stroke="#99e8d9" stroke-width="2" filter="url(#shadow)" />
+    <text x="380" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">검토</text>
+    <text x="380" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Review</text>
+  </g>
+
+  <!-- 화살표 3 → 4 -->
+  <line x1="440" y1="100" x2="465" y2="100" stroke="#999" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- 단계 4: 배포 -->
+  <g>
+    <rect x="465" y="50" width="120" height="100" rx="16" fill="url(#pastel4)" stroke="#c9b3ff" stroke-width="2" filter="url(#shadow)" />
+    <text x="525" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">배포</text>
+    <text x="525" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Deploy</text>
+  </g>
+
+  <!-- 화살표 4 → 5 -->
+  <line x1="585" y1="100" x2="610" y2="100" stroke="#999" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- 단계 5: 분석 -->
+  <g>
+    <rect x="610" y="50" width="120" height="100" rx="16" fill="url(#pastel5)" stroke="#99ccff" stroke-width="2" filter="url(#shadow)" />
+    <text x="670" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">분석</text>
+    <text x="670" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Analytics</text>
+  </g>
+
+  <!-- 타이틀 (선택사항) -->
+  <text x="400" y="25" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666" font-weight="bold" letter-spacing="1">프로젝트 진행 프로세스</text>
+</svg>

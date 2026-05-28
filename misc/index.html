@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김비서를 소개합니다</title>
+  <!-- FOUC 방지: 렌더링 전에 테마 적용 -->
+  <script>(function(){var t=localStorage.getItem('kimbi-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── CSS 변수 (라이트 모드) ── */
+    :root {
+      --bg:           #dde3f5;
+      --card-bg:      rgba(255,255,255,0.62);
+      --card-border:  rgba(255,255,255,0.85);
+      --card-shadow:  0 8px 32px rgba(60,40,180,0.10), 0 2px 8px rgba(0,0,0,0.04);
+      --card-hover:   0 22px 54px rgba(60,40,180,0.18), 0 4px 16px rgba(0,0,0,0.06);
+      --text-1:       #1a1a2e;
+      --text-2:       #4b5563;
+      --text-3:       #9ca3af;
+      --accent:       #5b72f2;
+      --accent-soft:  rgba(91,114,242,0.12);
+      --accent-glow:  rgba(91,114,242,0.36);
+      --orb-op:       0.22;
+      --tr:           background-color 0.35s ease, color 0.35s ease,
+                      border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    /* ── CSS 변수 (다크 모드) ── */
+    [data-theme="dark"] {
+      --bg:           #0f0f23;
+      --card-bg:      rgba(255,255,255,0.055);
+      --card-border:  rgba(255,255,255,0.09);
+      --card-shadow:  0 8px 32px rgba(0,0,0,0.50), 0 2px 8px rgba(0,0,0,0.30);
+      --card-hover:   0 22px 54px rgba(0,0,0,0.60), 0 4px 16px rgba(129,140,248,0.18);
+      --text-1:       #e0e0e0;
+      --text-2:       #a0a0b8;
+      --text-3:       #585872;
+      --accent:       #818cf8;
+      --accent-soft:  rgba(129,140,248,0.13);
+      --accent-glow:  rgba(129,140,248,0.38);
+      --orb-op:       0.13;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-1);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      transition: var(--tr);
+    }
+
+    /* ── 배경 오브 ── */
+    .bg-wrap {
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(110px);
+      opacity: var(--orb-op);
+      transition: opacity 0.35s ease;
+    }
+    .o1 { width: 700px; height: 700px; background: #7c3aed; top: -260px; left: -200px; }
+    .o2 { width: 600px; height: 600px; background: #ec4899; bottom: -200px; right: -180px; }
+    .o3 { width: 460px; height: 460px; background: #3b82f6; top: 45%; left: 55%; transform: translate(-50%,-50%); }
+
+    /* ── 테마 토글 버튼 ── */
+    .theme-btn {
+      position: fixed; top: 20px; right: 24px; z-index: 999;
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 13px; font-weight: 600; color: var(--text-1);
+      box-shadow: var(--card-shadow);
+      transition: var(--tr), transform 0.2s ease;
+      font-family: inherit;
+    }
+    .theme-btn:hover { transform: translateY(-2px); box-shadow: var(--card-hover); }
+    .theme-btn:active { transform: translateY(0); }
+
+    /* ── 메인 레이아웃 ── */
+    .page {
+      position: relative; z-index: 1;
+      width: 100%; padding: 80px 24px 52px;
+    }
+    .hero { text-align: center; max-width: 740px; margin: 0 auto; }
+
+    /* ── 배지 ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 12.5px; font-weight: 700;
+      padding: 6px 18px; border-radius: 50px;
+      margin-bottom: 28px;
+      border: 1px solid rgba(91,114,242,0.20);
+      transition: var(--tr);
+    }
+
+    /* ── 제목 ── */
+    h1 {
+      font-size: 56px; font-weight: 900;
+      line-height: 1.15; margin-bottom: 20px;
+      letter-spacing: -1.5px; color: var(--text-1);
+      transition: color 0.35s;
+    }
+    .grad {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 55%, #ee9ca7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    [data-theme="dark"] .grad {
+      background: linear-gradient(135deg, #818cf8 0%, #c084fc 55%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── 부제목 ── */
+    .subtitle {
+      font-size: 17px; color: var(--text-2);
+      margin-bottom: 52px; line-height: 1.80;
+      transition: color 0.35s;
+    }
+
+    /* ── 기능 카드 그리드 ── */
+    .feat-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 16px; margin-bottom: 48px;
+    }
+    .feat-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 22px; padding: 30px 22px;
+      box-shadow: var(--card-shadow);
+      text-align: left;
+      transition: var(--tr), transform 0.25s ease;
+    }
+    .feat-card:hover { transform: translateY(-7px); box-shadow: var(--card-hover); }
+
+    .feat-icon {
+      width: 54px; height: 54px; border-radius: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 25px; margin-bottom: 18px;
+      transition: background 0.35s;
+    }
+    .fi-b { background: rgba(91,114,242,0.14); }
+    .fi-g { background: rgba(16,185,129,0.14); }
+    .fi-p { background: rgba(167,60,200,0.14); }
+
+    .feat-card h3 {
+      font-size: 15px; font-weight: 700;
+      color: var(--text-1); margin-bottom: 9px;
+      transition: color 0.35s;
+    }
+    .feat-card p {
+      font-size: 13px; color: var(--text-2);
+      line-height: 1.65; transition: color 0.35s;
+    }
+
+    /* ── CTA 버튼 ── */
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white; text-decoration: none;
+      font-size: 17px; font-weight: 700;
+      padding: 19px 54px; border-radius: 16px;
+      box-shadow: 0 6px 30px var(--accent-glow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      letter-spacing: 0.2px;
+    }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 44px var(--accent-glow); }
+    .cta-btn:active { transform: translateY(0); }
+    .arrow { display: inline-block; transition: transform 0.2s; }
+    .cta-btn:hover .arrow { transform: translateX(6px); }
+  </style>
+</head>
+<body>
+
+  <div class="bg-wrap">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+  </div>
+
+  <button class="theme-btn" onclick="toggleTheme()">
+    <span id="ti">🌙</span><span id="tl">다크 모드</span>
+  </button>
+
+  <div class="page">
+    <div class="hero">
+      <div class="badge">✦ AI 업무 지원 비서</div>
+      <h1><span class="grad">김비서</span>를<br>소개합니다</h1>
+      <p class="subtitle">
+        바쁜 하루를 체계적으로 정리해 드리는 스마트 업무 파트너입니다.<br>
+        할 일부터 매출까지, 모든 것을 한눈에 확인하세요.
+      </p>
+      <div class="feat-grid">
+        <div class="feat-card">
+          <div class="feat-icon fi-b">📋</div>
+          <h3>할 일 &amp; 일정 관리</h3>
+          <p>우선순위별 업무 목록과 주간 일정을 한 화면에서 관리합니다</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon fi-g">📊</div>
+          <h3>프로젝트 현황 추적</h3>
+          <p>진행 중인 모든 프로젝트의 진행률과 예산 현황을 실시간으로 파악합니다</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon fi-p">💰</div>
+          <h3>매출 데이터 분석</h3>
+          <p>월별·카테고리별 매출 현황을 직관적인 숫자 카드로 요약합니다</p>
+        </div>
+      </div>
+      <a href="dashboard.html" class="cta-btn">내 대시보드 보기 <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <script>
+    function getTheme() { return localStorage.getItem('kimbi-theme') || 'light'; }
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      document.getElementById('ti').textContent = t === 'dark' ? '☀️' : '🌙';
+      document.getElementById('tl').textContent = t === 'dark' ? '라이트 모드' : '다크 모드';
+    }
+    function toggleTheme() {
+      var next = getTheme() === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('kimbi-theme', next);
+      applyTheme(next);
+    }
+    applyTheme(getTheme());
+  </script>
+</body>
+</html>

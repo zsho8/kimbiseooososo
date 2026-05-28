@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open \"/Users/zsho/클로드 워크샵/index.html\")",
+      "mcp__Claude_Preview__preview_start",
+      "WebFetch(domain:www.subtrac.kr)",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}
