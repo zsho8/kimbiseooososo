@@ -2,8 +2,14 @@
 <html lang="ko" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>자비스 대시보드</title>
+  <!-- 핸드폰 홈화면 추가 시 앱처럼 보이도록 -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="자비스">
+  <meta name="theme-color" content="#0a1628">
   <!-- FOUC 방지 -->
   <script>(function(){var t=localStorage.getItem('jarvis-theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
   <style>
@@ -331,6 +337,47 @@
     .product-bar-wrap { flex: 2; height: 6px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; transition: background 0.35s; }
     .product-bar-fill { height: 100%; border-radius: 4px; }
     .product-amt { font-size: 12px; font-weight: 600; color: var(--accent); white-space: nowrap; transition: color 0.35s; }
+
+    /* ── 기기 간 동기화 상태 배지 ── */
+    .sync-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 12px; border-radius: 50px;
+      font-size: 12px; font-weight: 600; color: var(--text-2);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      white-space: nowrap; transition: var(--tr);
+    }
+    .sync-badge.pulse { animation: syncPulse 0.9s ease; }
+    @keyframes syncPulse {
+      0%   { box-shadow: 0 0 0 0 var(--accent-glow); }
+      70%  { box-shadow: 0 0 0 8px rgba(6,182,212,0); }
+      100% { box-shadow: var(--card-shadow); }
+    }
+
+    /* ── 모바일(핸드폰) 대응 ── */
+    @media (max-width: 768px) {
+      header {
+        height: auto; padding: 10px 14px;
+        flex-wrap: wrap; gap: 8px 10px;
+      }
+      .hd { display: none; }
+      .header-title { font-size: 14px; flex-basis: 100%; order: -1; }
+      .header-right { margin-left: 0; width: 100%; gap: 8px; flex-wrap: wrap; }
+      .header-date { font-size: 12px; }
+      .theme-btn { padding: 6px 12px; font-size: 12px; }
+      .sync-badge { font-size: 11.5px; padding: 5px 10px; }
+      .nav-tabs { top: 0; padding: 0 10px; }
+      .nav-tab { padding: 11px 13px; font-size: 12.5px; }
+      .dashboard {
+        grid-template-columns: 1fr;     /* 한 줄에 카드 하나 */
+        gap: 14px; padding: 14px;
+      }
+      .sales-grid { grid-template-columns: 1fr; }
+      /* 손가락 터치 영역 키우기 */
+      .todo-item input[type="checkbox"] { width: 22px; height: 22px; }
+      .todo-item { padding-top: 12px; padding-bottom: 12px; }
+    }
   </style>
 </head>
 <body>
@@ -347,6 +394,7 @@
     <span class="header-title">자비스 시스템 - 업무 대시보드</span>
     <div class="header-right">
       <span class="header-date">2026년 3월 10일 (월)</span>
+      <span id="sync-status" class="sync-badge" title="동기화 상태">💾 이 기기 저장</span>
       <button class="theme-btn" onclick="toggleVoice()">
         <span id="vi">🔊</span><span id="vl">음성 켜기</span>
       </button>
@@ -708,6 +756,13 @@
 
   </div>
 
+  <!-- ── 기기 간 동기화 (맥북 ↔ 핸드폰) ── -->
+  <!-- 설정이 없으면 자동으로 이 기기 저장으로 동작합니다 -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/jarvis-sync.js"></script>
+
   <script>
     function getTheme() { return localStorage.getItem('jarvis-theme') || 'light'; }
     function applyTheme(t) {
@@ -798,21 +853,50 @@
       });
     }
 
-    function setupCheckboxListeners() {
-      for(var i = 1; i <= 10; i++) {
-        var checkbox = document.getElementById('t' + (i > 9 ? i : i));
-        if(!checkbox) continue;
-
-        checkbox.addEventListener('change', (function(idx) {
-          return function() {
-            var item = this.closest('.todo-item');
-            var taskName = item.querySelector('.todo-name').textContent;
-            var isChecked = this.checked;
-            var msg = 'Sir, ' + taskName + ' has been marked ' + (isChecked ? 'complete' : 'pending') + '.';
-            speak(msg, 'normal');
-          };
-        })(i));
+    // 체크 상태를 화면에 반영 (완료 줄긋기 스타일 포함)
+    function applyTaskState(id, checked) {
+      var cb = document.getElementById(id);
+      if(!cb) return;
+      if(cb.checked !== checked) cb.checked = checked;
+      var item = cb.closest('.todo-item');
+      if(item) {
+        var name = item.querySelector('.todo-name');
+        if(name) { checked ? name.classList.add('done') : name.classList.remove('done'); }
       }
+    }
+
+    // 동기화 상태 배지 갱신
+    function updateSyncBadge(status, mode) {
+      var el = document.getElementById('sync-status');
+      if(!el) return;
+      if(mode === 'cloud') {
+        if(status === 'synced') { el.textContent = '🟢 동기화됨'; el.title = '맥북·핸드폰 실시간 연결됨'; }
+        else { el.textContent = '🟡 연결 중…'; el.title = '클라우드에 연결하는 중'; }
+      } else {
+        el.textContent = '💾 이 기기 저장';
+        el.title = '클라우드 미설정 — 이 기기에만 저장됩니다 (MOBILE_SYNC_GUIDE.md 참고)';
+      }
+    }
+    function pulseSyncBadge() {
+      var el = document.getElementById('sync-status');
+      if(!el) return;
+      el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse');
+    }
+
+    function setupCheckboxListeners() {
+      var boxes = document.querySelectorAll('.todo-item input[type="checkbox"]');
+      boxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          var item = this.closest('.todo-item');
+          var name = item.querySelector('.todo-name');
+          var taskName = name ? name.textContent : '';
+          var isChecked = this.checked;
+          if(name) { isChecked ? name.classList.add('done') : name.classList.remove('done'); }
+          speak('Sir, ' + taskName + ' has been marked ' + (isChecked ? 'complete' : 'pending') + '.', 'normal');
+          // 변경 사항을 저장하고 (설정 시) 다른 기기로 전파
+          if(window.JarvisSync) JarvisSync.set(this.id, isChecked);
+        });
+      });
     }
 
     // 현재 페이지 기반 탭 강조
@@ -840,6 +924,21 @@
     highlightCurrentTab();
     applyVoice(getVoiceEnabled());
     setupCheckboxListeners();
+
+    // ── 기기 간 동기화 시작 (맥북 ↔ 핸드폰) ──
+    if(window.JarvisSync) {
+      // 최초 방문 시 HTML 기본 체크 상태를 저장소에 반영 (기존 저장값은 유지)
+      var saved = JarvisSync.getAll();
+      document.querySelectorAll('.todo-item input[type="checkbox"]').forEach(function(cb) {
+        if(!(cb.id in saved)) JarvisSync.set(cb.id, cb.checked);
+      });
+      JarvisSync.onStatus(updateSyncBadge);
+      JarvisSync.onUpdate(function(state, fromRemote) {
+        Object.keys(state).forEach(function(id) { applyTaskState(id, !!state[id]); });
+        if(fromRemote) pulseSyncBadge();
+      });
+      JarvisSync.init();
+    }
 
     // 자비스 시스템 초기화 및 인사말
     window.addEventListener('load', function() {
