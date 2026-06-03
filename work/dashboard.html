@@ -760,6 +760,7 @@
   <!-- 설정이 없으면 자동으로 이 기기 저장으로 동작합니다 -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="../js/vendor/mqtt.min.js"></script>
   <script src="../js/firebase-config.js"></script>
   <script src="../js/jarvis-sync.js"></script>
 
@@ -869,12 +870,17 @@
     function updateSyncBadge(status, mode) {
       var el = document.getElementById('sync-status');
       if(!el) return;
-      if(mode === 'cloud') {
-        if(status === 'synced') { el.textContent = '🟢 동기화됨'; el.title = '맥북·핸드폰 실시간 연결됨'; }
-        else { el.textContent = '🟡 연결 중…'; el.title = '클라우드에 연결하는 중'; }
+      if(mode === 'cloud' || mode === 'mqtt') {
+        if(status === 'synced') {
+          el.textContent = '🟢 동기화됨';
+          el.title = '맥북·핸드폰 실시간 연결됨' + (mode === 'mqtt' ? ' (공개 브로커)' : '');
+        } else {
+          el.textContent = '🟡 연결 중…';
+          el.title = '실시간 서버에 연결하는 중';
+        }
       } else {
         el.textContent = '💾 이 기기 저장';
-        el.title = '클라우드 미설정 — 이 기기에만 저장됩니다 (MOBILE_SYNC_GUIDE.md 참고)';
+        el.title = '실시간 연결 불가 — 이 기기에만 저장됩니다';
       }
     }
     function pulseSyncBadge() {
