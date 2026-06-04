@@ -17,8 +17,12 @@
   var mode = 'local';            // 'cloud' | 'mqtt' | 'local'
   var applyingRemote = false;    // 원격 반영 중 되쓰기 방지
 
-  // 공개 MQTT 브로커 (가입 불필요, best-effort). WebSocket Secure.
-  var MQTT_BROKER = 'wss://broker.emqx.io:8084/mqtt';
+  // 공개 MQTT 브로커 목록 (가입 불필요, best-effort, 모두 WSS=HTTPS호환).
+  // 앞에서부터 시도하고, 일정 시간 내 연결 안 되면 다음 브로커로 폴백.
+  var MQTT_BROKERS = [
+    'wss://broker.emqx.io:8084/mqtt',
+    'wss://test.mosquitto.org:8081/mqtt'
+  ];
 
   var fbRef = null;              // Firebase 참조
   var mqttClient = null;         // MQTT 클라이언트
@@ -104,49 +108,74 @@
   // ═══════════════ MQTT 백엔드 (무설정 기본값) ═══════════════
   function startMqtt() {
     if (typeof global.mqtt === 'undefined' || !global.mqtt.connect) return false;
-    try {
-      mqttTopic = 'jarvis/' + boardId() + '/tasks';
-      mode = 'mqtt';
-      setStatus('connecting');
+    mqttTopic = 'jarvis/' + boardId() + '/tasks';
+    mode = 'mqtt';
+    connectBroker(0);
+    return true;
+  }
 
-      mqttClient = global.mqtt.connect(MQTT_BROKER, {
+  // 브로커 하나에 연결 시도, 7초 내 실패하면 다음 브로커로 폴백
+  function connectBroker(idx) {
+    var url = MQTT_BROKERS[idx % MQTT_BROKERS.length];
+    setStatus('connecting');
+
+    var client;
+    try {
+      client = global.mqtt.connect(url, {
         clientId: 'jarvis_' + Math.random().toString(16).slice(2),
         clean: true,
         reconnectPeriod: 4000,
-        connectTimeout: 8000,
+        connectTimeout: 6000,
         keepalive: 30
       });
-
-      mqttClient.on('connect', function () {
-        mqttGotMessage = false;
-        mqttClient.subscribe(mqttTopic, { qos: 1 }, function () {
-          setStatus('synced');
-          // 일정 시간 내 retained 메시지가 없으면(=최초) 이 기기 상태를 시드로 게시
-          clearTimeout(mqttSeedTimer);
-          mqttSeedTimer = setTimeout(function () {
-            if (!mqttGotMessage) {
-              var local = readLocal();
-              if (Object.keys(local).length) publishState(local);
-            }
-          }, 2000);
-        });
-      });
-
-      mqttClient.on('message', function (topic, payload) {
-        mqttGotMessage = true;
-        try { applyRemote(JSON.parse(payload.toString())); }
-        catch (e) { console.warn('[JarvisSync] MQTT 메시지 파싱 실패', e); }
-      });
-
-      mqttClient.on('reconnect', function () { setStatus('connecting'); });
-      mqttClient.on('offline',   function () { setStatus('connecting'); });
-      mqttClient.on('error',     function (e) { console.warn('[JarvisSync] MQTT 오류', e); });
-
-      return true;
     } catch (e) {
-      console.warn('[JarvisSync] MQTT 초기화 오류 → 로컬 모드', e);
-      mqttClient = null;
-      return false;
+      console.warn('[JarvisSync] MQTT connect 예외 @' + url, e);
+      return tryNext(idx);
+    }
+
+    var settled = false;
+    var failTimer = setTimeout(function () {
+      if (settled) return;
+      settled = true;
+      try { client.end(true); } catch (e) {}
+      tryNext(idx);
+    }, 7000);
+
+    client.on('connect', function () {
+      settled = true;
+      clearTimeout(failTimer);
+      mqttClient = client;
+      mqttGotMessage = false;
+      client.subscribe(mqttTopic, { qos: 1 }, function () {
+        setStatus('synced');
+        // 일정 시간 내 retained 메시지가 없으면(=최초) 이 기기 상태를 시드로 게시
+        clearTimeout(mqttSeedTimer);
+        mqttSeedTimer = setTimeout(function () {
+          if (!mqttGotMessage) {
+            var local = readLocal();
+            if (Object.keys(local).length) publishState(local);
+          }
+        }, 2000);
+      });
+    });
+
+    client.on('message', function (topic, payload) {
+      mqttGotMessage = true;
+      try { applyRemote(JSON.parse(payload.toString())); }
+      catch (e) { console.warn('[JarvisSync] MQTT 메시지 파싱 실패', e); }
+    });
+
+    client.on('reconnect', function () { setStatus('connecting'); });
+    client.on('error', function (e) { console.warn('[JarvisSync] MQTT 오류 @' + url, e && e.message); });
+  }
+
+  function tryNext(idx) {
+    if (idx + 1 < MQTT_BROKERS.length) {
+      connectBroker(idx + 1);          // 다음 브로커
+    } else {
+      console.warn('[JarvisSync] 모든 공개 브로커 연결 실패 → 로컬 저장 모드');
+      mode = 'local';
+      setStatus('local');
     }
   }
 
