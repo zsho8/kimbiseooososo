@@ -113,7 +113,15 @@
       "Bash(python3 -m py_compile \".claude/skills/caracal-instagram-cardnews/assets/reels_gen.py\")",
       "Bash(awk '{print $9,$5,$8}')",
       "Bash(python3 \".claude/skills/caracal-instagram-cardnews/assets/tts_neural.py\" --text \"요즘 SNS를 뜨겁게 달구는 운동, 하이록스! 달리기와 근력을 한 번에 몰아붙이는 하이브리드 레이스예요.\" --out \"/tmp/jy_test.mp3\")",
-      "Bash(open /tmp/jy_test.mp3)"
+      "Bash(open /tmp/jy_test.mp3)",
+      "Bash(bash -n \".claude/skills/caracal-instagram-cardnews/assets/publish_reels.sh\")",
+      "Bash(chmod +x \".claude/skills/caracal-instagram-cardnews/assets/publish_reels.sh\")",
+      "Bash(cd \"/Users/zsho/클로드 워크샵\" && echo \"=== .git/config 전체\\(토큰 마스킹\\) ===\" && sed -E 's/\\(https:\\\\/\\\\/\\)[A-Za-z0-9_]+\\(@github\\)/\\\\1****\\\\2/g' .git/config)",
+      "Bash(bash \".claude/skills/caracal-instagram-cardnews/assets/publish_cardnews.sh\" --dir \"marketing-agent/output/cardnews-T1\" --caption \"marketing-agent/output/caption-T1.txt\" --due \"2026-06-08T19:00:00+09:00\" --bust \"t1c1\")",
+      "Bash(bash \".claude/skills/caracal-instagram-cardnews/assets/publish_cardnews.sh\" --dir \"marketing-agent/output/cardnews-T3\" --caption \"marketing-agent/output/caption-T3.txt\" --due \"2026-06-11T19:00:00+09:00\" --bust \"t3c1\")",
+      "Bash(bash \".claude/skills/caracal-instagram-cardnews/assets/publish_reels.sh\" --reel \"marketing-agent/output/reels-T1.mp4\" --thumb \"marketing-agent/output/cardnews-T1-reels/slide_01.png\" --caption \"marketing-agent/output/caption-T1.txt\" --due \"2026-06-10T19:30:00+09:00\" --bust \"t1r1\")",
+      "Bash(bash \".claude/skills/caracal-instagram-cardnews/assets/publish_reels.sh\" --reel \"marketing-agent/output/reels-T3.mp4\" --thumb \"marketing-agent/output/cardnews-T3-reels/slide_01.png\" --caption \"marketing-agent/output/caption-T3.txt\" --due \"2026-06-17T19:30:00+09:00\" --bust \"t3r1\")",
+      "Bash(git merge *)"
     ]
   }
 }
