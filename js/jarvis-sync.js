@@ -3,8 +3,9 @@
 
    우선순위:
    1) Firebase Realtime Database 설정이 있으면  → 실시간 양방향 동기화 (가장 견고)
-   2) 없으면 → 공개 MQTT 브로커로 실시간 동기화 (가입·설정 불필요, 기본값)
-   3) 둘 다 안 되면 → 이 기기 localStorage 에만 저장 (안전한 폴백)
+   2) 없으면 → ntfy.sh (HTTPS 443, 가입·설정 불필요) 로 실시간 동기화  ← 기본값
+   3) ntfy 불가 시 → 공개 MQTT 브로커 (best-effort)
+   4) 모두 불가 시 → 이 기기 localStorage 에만 저장 (안전한 폴백)
 
    같은 boardId 를 쓰는 기기끼리 동기화됩니다. (js/firebase-config.js 의 boardId)
    ────────────────────────────────────────────────────────────── */
@@ -14,8 +15,13 @@
   var LS_KEY = 'jarvis-tasks';
   var listeners = [];
   var statusCb = null;
-  var mode = 'local';            // 'cloud' | 'mqtt' | 'local'
+  var mode = 'local';            // 'cloud' | 'ntfy' | 'mqtt' | 'local'
   var applyingRemote = false;    // 원격 반영 중 되쓰기 방지
+
+  // ntfy.sh : 가입 없이 HTTPS(443) 로 동작하는 공개 pub/sub. 제한적인 네트워크도 통과.
+  var NTFY_BASE = 'https://ntfy.sh';
+  var ntfyTopic = null;
+  var ntfySse = null;
 
   // 공개 MQTT 브로커 목록 (가입 불필요, best-effort, 모두 WSS=HTTPS호환).
   // 앞에서부터 시도하고, 일정 시간 내 연결 안 되면 다음 브로커로 폴백.
@@ -93,9 +99,9 @@
         }
         applyRemote(remote);
       }, function (err) {
-        console.warn('[JarvisSync] Firebase 연결 실패 → MQTT 시도', err);
+        console.warn('[JarvisSync] Firebase 연결 실패 → ntfy 시도', err);
         fbRef = null;
-        startMqttOrLocal();
+        startNtfyOrMqtt();
       });
       return true;
     } catch (e) {
@@ -193,6 +199,60 @@
     }
   }
 
+  // ═══════════════ ntfy.sh 백엔드 (HTTPS 443, 무설정 기본값) ═══════════════
+  function ntfyTopicName() { return 'caracal-jarvis-' + boardId(); }
+
+  function startNtfy() {
+    if (typeof global.fetch !== 'function' || typeof global.EventSource !== 'function') return false;
+    ntfyTopic = ntfyTopicName();
+    mode = 'ntfy';
+    setStatus('connecting');
+
+    // 1) 서버 캐시에 있는 최신 상태부터 가져오기 (retained 역할)
+    global.fetch(NTFY_BASE + '/' + ntfyTopic + '/json?poll=1&since=12h')
+      .then(function (r) { return r.text(); })
+      .then(function (text) {
+        var latest = null;
+        text.split('\n').forEach(function (line) {
+          if (!line) return;
+          try { var o = JSON.parse(line); if (o.event === 'message' && o.message) latest = o.message; } catch (e) {}
+        });
+        if (latest) { try { applyRemote(JSON.parse(latest)); } catch (e) {} }
+        else {
+          var local = readLocal();           // 캐시가 비어있고 이 기기에 상태가 있으면 시드 게시
+          if (Object.keys(local).length) publishNtfy(local);
+        }
+      })
+      .catch(function (e) { console.warn('[JarvisSync] ntfy 초기 조회 실패', e); });
+
+    // 2) 실시간 구독 (SSE, 자동 재연결)
+    try {
+      ntfySse = new global.EventSource(NTFY_BASE + '/' + ntfyTopic + '/sse');
+      ntfySse.onopen = function () { setStatus('synced'); };
+      ntfySse.onmessage = function (ev) {
+        try {
+          var o = JSON.parse(ev.data);
+          if (o.event === 'message' && o.message) applyRemote(JSON.parse(o.message));
+        } catch (e) {}
+      };
+      ntfySse.onerror = function () { setStatus('connecting'); };   // EventSource 가 자동 재시도
+    } catch (e) {
+      console.warn('[JarvisSync] ntfy SSE 오류 → MQTT 시도', e);
+      return false;
+    }
+    return true;
+  }
+
+  function publishNtfy(state) {
+    if (typeof global.fetch !== 'function') return;
+    global.fetch(NTFY_BASE + '/' + ntfyTopic, { method: 'POST', body: JSON.stringify(state) })
+      .catch(function (e) { console.warn('[JarvisSync] ntfy 게시 실패', e); });
+  }
+
+  function startNtfyOrMqtt() {
+    if (!startNtfy()) startMqttOrLocal();
+  }
+
   var Sync = {
     mode: function () { return mode; },
     onUpdate: function (fn) { if (typeof fn === 'function') listeners.push(fn); },
@@ -209,6 +269,8 @@
         fbRef.child(id).set(!!checked).catch(function (e) {
           console.warn('[JarvisSync] Firebase 쓰기 실패 (로컬엔 저장됨)', e);
         });
+      } else if (mode === 'ntfy') {
+        publishNtfy(state);         // 전체 상태를 게시
       } else if (mode === 'mqtt') {
         publishState(state);        // 전체 상태를 retained 로 게시
       }
@@ -223,8 +285,8 @@
                     typeof global.firebase !== 'undefined' &&
                     typeof global.firebase.initializeApp === 'function';
 
-      if (fbReady && startFirebase(cfg)) return;   // 1순위
-      startMqttOrLocal();                           // 2순위(MQTT) → 3순위(local)
+      if (fbReady && startFirebase(cfg)) return;   // 1순위 Firebase
+      startNtfyOrMqtt();                            // 2순위 ntfy → 3순위 MQTT → 4순위 local
     }
   };
 

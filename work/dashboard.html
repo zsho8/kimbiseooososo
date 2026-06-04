@@ -870,10 +870,10 @@
     function updateSyncBadge(status, mode) {
       var el = document.getElementById('sync-status');
       if(!el) return;
-      if(mode === 'cloud' || mode === 'mqtt') {
+      if(mode === 'cloud' || mode === 'ntfy' || mode === 'mqtt') {
         if(status === 'synced') {
           el.textContent = '🟢 동기화됨';
-          el.title = '맥북·핸드폰 실시간 연결됨' + (mode === 'mqtt' ? ' (공개 브로커)' : '');
+          el.title = '맥북·핸드폰 실시간 연결됨';
         } else {
           el.textContent = '🟡 연결 중…';
           el.title = '실시간 서버에 연결하는 중';
