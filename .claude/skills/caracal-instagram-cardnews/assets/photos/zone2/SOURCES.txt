@@ -1,0 +1,15 @@
+카드뉴스 사진 출처 (Pexels — 무료 상업적 이용, 출처표기 의무 없음)
+- cover_sunset.jpg : pexels.com/photo/18447597
+- silhouette.jpg   : pexels.com/photo/33491430
+- treelined.jpg    : pexels.com/photo/19783892
+- crew.jpg         : pexels.com/photo/27300143
+- warmfield.jpg    : pexels.com/photo/16961403
+- roadrun.jpg      : pexels.com/photo/10157895
+- dailyrun.jpg     : pexels.com/photo/12443511
+- raceday.jpg      : pexels.com/photo/24308070
+- urbanrun.jpg     : pexels.com/photo/32566488
+- hill.jpg         : pexels.com/photo/30742916
+- forest_solo.jpg  : pexels.com/photo/32798746
+- trail_two.jpg    : pexels.com/photo/33284136
+- forest_run.jpg   : pexels.com/photo/8729007
+- elitepack.jpg    : pexels.com/photo/2421564 (3번 실루엣 교체)

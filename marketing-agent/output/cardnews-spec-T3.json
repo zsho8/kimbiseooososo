@@ -1,0 +1,103 @@
+{
+  "topic_id": "T3",
+  "title": "러닝크루 발 보호 5계명",
+  "accent": "#EC561A",
+  "_style": "v11 풀블리드+하단 텍스트, 키워드 *별표*=주황+밑줄 강조, infobox. narration=릴스 아나운서 멘트",
+  "slides": [
+    {
+      "layout": "cover",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/crew/group1.jpg",
+      "focus": 0.35, "align": "center",
+      "kicker": "러닝크루 시즌",
+      "headline": "크루런 전\n*이것* 안 하면 후회",
+      "subtitle": "함께 오래 달리는 러너의 발 보호 5계명",
+      "narration": "함께 달리는 즐거움, 러닝크루. 하지만 출발 전에 발부터 챙겨야 합니다. 오래 함께 달리기 위한 발 보호 다섯 가지 계명을 소개합니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/crew/group2.jpg",
+      "focus": 0.35, "align": "left",
+      "kicker": "알고 계셨어요?",
+      "headline": "러닝 부상 대부분\n*발·발목*에서",
+      "body": "착지 충격은 체중의 2~3배!\n크루에 휩쓸리면 부담이 더 커져요.",
+      "narration": "러닝 부상의 상당수는 발과 발목에서 시작됩니다. 착지 충격은 체중의 두세 배에 달하고, 크루에 휩쓸리면 그 부담은 더욱 커집니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/crew/runner1.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "1계명",
+      "headline": "내 발에 맞는\n*러닝화*",
+      "body": "발볼·아치에 맞게,\n300~500km마다 교체!",
+      "narration": "첫째, 내 발에 맞는 러닝화입니다. 발볼과 아치에 맞춰 신고, 삼백에서 오백 킬로미터마다 교체하는 것이 좋습니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/crew/group3.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "2계명",
+      "headline": "출발 전 *발목*\n꼭 풀기",
+      "body": "발목 돌리기 · 까치발 들기로\n관절과 종아리를 깨워주세요.",
+      "narration": "둘째, 출발 전 발목 풀기입니다. 발목 돌리기와 까치발 들기로 관절과 종아리를 충분히 깨워주세요."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/crew/runner2.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "3계명",
+      "headline": "*대화 가능*한\n페이스로",
+      "body": "크루에 휩쓸려 오버페이스는 금물.\n숨이 차면 잠깐 걸어도 괜찮아요.",
+      "narration": "셋째, 대화가 가능한 페이스입니다. 크루에 휩쓸린 오버페이스는 금물이며, 숨이 차면 잠시 걸어도 괜찮습니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/crew/group4.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "4계명",
+      "headline": "달린 후 *종아리*\n케어 필수",
+      "body": "폼롤러 · 스트레칭으로\n종아리·아킬레스를 꼭 풀어주세요.",
+      "narration": "넷째, 달린 후 종아리 케어입니다. 폼롤러와 스트레칭으로 종아리와 아킬레스를 꼭 풀어주세요."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/crew/runner3.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "5계명",
+      "headline": "*압박*으로\n받쳐주기",
+      "body": "종아리·아킬레스를 잡아주면\n피로와 흔들림이 확 줄어요.",
+      "narration": "다섯째, 압박으로 받쳐주기입니다. 종아리와 아킬레스를 잡아주면, 피로와 흔들림이 크게 줄어듭니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/crew/group5.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "오늘 크루런 체크리스트",
+      "headline": "이건 *필수*예요",
+      "infobox": [
+        {"label": "러닝화", "value": "마일리지 체크"},
+        {"label": "워밍업", "value": "발목 · 종아리"},
+        {"label": "회복", "value": "스트레칭 + 압박"}
+      ],
+      "narration": "오늘 크루런 전에 점검하세요. 러닝화 마일리지, 발목과 종아리 워밍업, 그리고 달린 뒤의 회복까지 잊지 마세요."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/crew/race.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "함께 오래 가려면",
+      "headline": "발을 지키는\n한 켤레 *카라칼*",
+      "body": "물리치료사가 설계한 테이핑 양말,\n착용만으로 종아리·아킬레스 케어.",
+      "infobox": [
+        {"label": "100회 세탁 후에도 압박력 유지", "value": "92%"}
+      ],
+      "narration": "발을 지키는 한 켤레, 카라칼. 물리치료사가 설계한 테이핑 양말이, 착용만으로 종아리와 아킬레스를 잡아줍니다."
+    },
+    {
+      "layout": "closing",
+      "subtitle": "우리 크루에게 공유하고\n같이 오래 달려요",
+      "cta": "프로필 링크 → 네이버 스마트스토어",
+      "handle": "@caracal_supply",
+      "narration": "우리 크루와 함께, 오래오래 달려요. 카라칼."
+    }
+  ]
+}

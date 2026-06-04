@@ -1,0 +1,101 @@
+{
+  "topic_id": "T2",
+  "title": "Zone 2 완전정복 — 빠를수록 천천히",
+  "accent": "#EC561A",
+  "_style": "cltoo.run 우중런 가이드 참고: 풀블리드 무드 + 라벨태그 + 키워드 주황강조(*..*) + 반투명 정보박스",
+  "slides": [
+    {
+      "layout": "cover",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/zone2/cover_sunset.jpg",
+      "focus": 0.72,
+      "align": "center",
+      "kicker": "러닝 가이드",
+      "headline": "빠를수록\n*천천히* 달려라",
+      "subtitle": "오래, 부상 없이 달리는 비밀 *Zone 2* 완전정복",
+      "source": "사진 Pexels"
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/zone2/forest_run.jpg",
+      "focus": 0.55,
+      "kicker": "이런 적 있나요?",
+      "headline": "열심히 뛰는데\n왜 *기록*이 안 늘까?",
+      "body": "늘 비슷하게 힘든 속도로만 뛰면\n몸은 회복할 틈이 없어요.\n제자리걸음에 부상만 쌓이죠."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/zone2/trail_two.jpg",
+      "focus": 0.5,
+      "kicker": "의외의 사실",
+      "headline": "엘리트는 훈련의\n*80%* 를 천천히 뛴다",
+      "body": "케냐 마라토너도 올림픽 선수도\n대부분을 '편한 숨'으로 달려요.",
+      "infobox": [
+        {"label": "천천히 (Zone 2)", "value": "80%"},
+        {"label": "빠르게 (고강도)", "value": "20%"}
+      ]
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/zone2/hill.jpg",
+      "focus": 0.38,
+      "kicker": "느림의 과학",
+      "headline": "천천히 = *심장*이\n커지는 훈련",
+      "body": "1회 박출량이 늘고\n모세혈관·미토콘드리아가 많아져요.\n같은 속도가 점점 편해지는 이유예요."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/zone2/warmfield.jpg",
+      "focus": 0.4,
+      "kicker": "STEP 1 · 내 존 찾기",
+      "headline": "내 *Zone 2* 심박은?",
+      "infobox": [
+        {"label": "계산 공식", "value": "(220 - 나이) x 60~70%"},
+        {"label": "40세 예시", "value": "108 ~ 126 bpm"},
+        {"label": "체감 기준", "value": "옆 사람과 대화되는 '편한 숨'"}
+      ]
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/zone2/treelined.jpg",
+      "focus": 0.5,
+      "align": "right",
+      "kicker": "STEP 2 · 배분",
+      "headline": "*80 / 20* 으로 달려요",
+      "body": "대부분은 편한 숨으로 천천히,\n인터벌·템포는 주 1~2번이면 충분!"
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/zone2/roadrun.jpg",
+      "focus": 0.4,
+      "kicker": "STEP 3 · 부상 예방",
+      "headline": "거리는 주 *10%* 까지만",
+      "body": "갑자기 늘리면 종아리·아킬레스가\n과부하로 다쳐요.\n전후 발·종아리 케어는 필수!"
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/zone2/forest_solo.jpg",
+      "focus": 0.5,
+      "align": "right",
+      "kicker": "솔직한 이야기",
+      "headline": "단, *주 6시간* 미만이면?",
+      "body": "운동량이 적은 러너는\n고강도도 꽤 효율적이래요.\n핵심은 '편하게 자주 + 가끔 강하게'!"
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/zone2/crew.jpg",
+      "focus": 0.2,
+      "kicker": "오래 가려면",
+      "headline": "결국 *발*부터\n챙겨야 해요",
+      "body": "물리치료사가 설계한 카라칼 테이핑이\n종아리·아킬레스를 잡아줘요.",
+      "infobox": [
+        {"label": "100회 세탁 후에도 압박력 유지", "value": "92%"}
+      ]
+    },
+    {
+      "layout": "closing",
+      "subtitle": "도움이 됐다면 저장하고\n러닝메이트에게 공유해요",
+      "cta": "프로필 링크 → 네이버 스마트스토어",
+      "handle": "@caracal_supply"
+    }
+  ]
+}

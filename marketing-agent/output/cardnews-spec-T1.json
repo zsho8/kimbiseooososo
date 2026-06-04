@@ -1,0 +1,107 @@
+{
+  "topic_id": "T1",
+  "title": "하이록스 입문 가이드 — 발목·종아리부터",
+  "accent": "#EC561A",
+  "_style": "v11 풀블리드+하단 텍스트, 키워드 *별표*=주황+밑줄 강조, infobox, 실제 대회 사진. narration=릴스 아나운서 멘트",
+  "slides": [
+    {
+      "layout": "cover",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/hyrox/wallball.jpg",
+      "focus": 0.35, "align": "center",
+      "kicker": "요즘 인스타 점령 중",
+      "headline": "다들 *하이록스*\n한다던데?",
+      "subtitle": "달리기 + 근력 끝판왕 레이스, 핵심만 정리",
+      "narration": "요즘 SNS를 뜨겁게 달구는 운동, 하이록스. 달리기와 근력을 한 번에 몰아붙이는 하이브리드 레이스입니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/hyrox/gym.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "한 줄 정리",
+      "headline": "사실상 *8km* +\n근력운동 8개",
+      "body": "1km 달리기와 운동을 번갈아 8세트.\n쉬는 시간? 거의 없어요.",
+      "narration": "방식은 간단합니다. 1킬로미터 달리기와 기능성 운동을 번갈아 여덟 세트, 거의 쉬지 않고 이어집니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/hyrox/race.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "숫자로 보면",
+      "headline": "러닝만 *8km*\n숨어 있어요",
+      "infobox": [
+        {"label": "러닝", "value": "1km x 8회 = 8km"},
+        {"label": "운동", "value": "8개 기능성 스테이션"},
+        {"label": "방식", "value": "러닝 ↔ 운동 번갈아"}
+      ],
+      "narration": "그래서 알고 보면, 무려 팔 킬로미터에 달하는 러닝이 그 안에 숨어 있습니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/hyrox/sled.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "풀코스 미션",
+      "headline": "이 *8가지*를\n다 통과해야 끝",
+      "body": "스키에르그 · 슬레드 푸시/풀\n버피 · 로잉 · 파머스 캐리\n샌드백 런지 · 월볼",
+      "narration": "스키에르그, 슬레드 푸시와 풀, 버피, 로잉, 파머스 캐리, 샌드백 런지, 그리고 월볼까지. 여덟 가지 관문을 모두 통과해야 합니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/hyrox/lunge.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "발 조심!",
+      "headline": "왜 *종아리*가\n먼저 터질까?",
+      "body": "지친 다리로 또 달리고\n런지·슬레드까지 겹치면\n종아리·아킬레스에 부하가 집중돼요.",
+      "narration": "문제는 발입니다. 지친 다리로 다시 달리고, 런지와 슬레드까지 더해지면 종아리와 아킬레스에 부하가 집중됩니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/hyrox/kettlebell.jpg",
+      "focus": 0.35, "align": "left",
+      "kicker": "부상 1순위",
+      "headline": "진짜 적은\n*피로 누적*",
+      "body": "강도와 거리를 동시에 올리면\n무릎·아킬레스가\n가장 먼저 비명을 질러요.",
+      "narration": "부상의 진짜 원인은 피로의 누적입니다. 강도와 거리를 동시에 올리면, 무릎과 아킬레스가 가장 먼저 신호를 보냅니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/hyrox/runner2.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "다치지 않으려면",
+      "headline": "딱 *3가지*만\n지켜요",
+      "infobox": [
+        {"label": "러닝량", "value": "천천히 늘리기 (주 10%)"},
+        {"label": "종아리", "value": "풀레인지로 강화"},
+        {"label": "회복", "value": "충분한 휴식"}
+      ],
+      "narration": "다치지 않으려면 세 가지만 기억하세요. 러닝량은 천천히 늘리고, 종아리는 풀레인지로 강화하며, 회복에 충분한 시간을 주는 것입니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/hyrox/rope.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "입문자 필독",
+      "headline": "무조건 *둘이서*\n시작하세요",
+      "body": "2인 더블스로 부담을 반으로.\n무게보다 '폼', 목표는 완주!",
+      "narration": "입문자라면 둘이서 함께하는 더블스를 추천합니다. 무게보다 자세가 먼저이고, 첫 목표는 완주입니다."
+    },
+    {
+      "layout": "photo",
+      "photo": ".claude/skills/caracal-instagram-cardnews/assets/photos/hyrox/run.jpg",
+      "focus": 0.4, "align": "left",
+      "kicker": "완주의 숨은 비밀",
+      "headline": "결국 *발목·종아리*\n싸움이에요",
+      "body": "물리치료사가 설계한 카라칼 테이핑이\n종아리·아킬레스를 잡아줘요.",
+      "infobox": [
+        {"label": "100회 세탁 후에도 압박력 유지", "value": "92%"}
+      ],
+      "narration": "결국 완주의 비밀은 발목과 종아리에 있습니다. 물리치료사가 설계한 카라칼 테이핑 양말이, 그 부담을 단단히 잡아줍니다."
+    },
+    {
+      "layout": "closing",
+      "subtitle": "다음 하이록스, 도전해볼까요?\n저장하고 천천히 준비해요",
+      "cta": "프로필 링크 → 네이버 스마트스토어",
+      "handle": "@caracal_supply",
+      "narration": "오래 달리는 사람의 선택, 카라칼. 자세한 내용은 프로필 링크에서 확인하세요."
+    }
+  ]
+}
