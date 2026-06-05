@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CARACAL 릴스 발행 사전 체크 — 하이록스</title>
+<style>
+  :root{ --accent:#EC561A; --bg:#0f0f12; --card:#17171c; --line:#26262e; --txt:#f2f2f4; --sub:#9a9aa4; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,'Apple SD Gothic Neo',sans-serif;line-height:1.6;padding:0 0 80px}
+  header{padding:28px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(15,15,18,.92);backdrop-filter:blur(8px);z-index:10}
+  .wm{font-weight:800;letter-spacing:.18em;font-size:13px;color:var(--accent)}
+  h1{font-size:22px;margin-top:6px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .status{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px}
+  .pill b{color:var(--accent)}
+  section{margin-top:34px}
+  .label{font-size:13px;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:12px}
+  .grid2{display:grid;grid-template-columns:340px 1fr;gap:24px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
+  video{width:100%;border-radius:14px;border:1px solid var(--line);background:#000}
+  .caption{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;font-size:14.5px}
+  .slides{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  @media(max-width:720px){.slides{grid-template-columns:repeat(2,1fr)}}
+  .slides img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+  .cap{font-size:12px;color:var(--sub);text-align:center;margin-top:4px}
+  .note{font-size:13px;color:var(--sub);margin-top:10px}
+  a.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:11px 18px;border-radius:10px;font-weight:700;margin-top:12px}
+  .checklist{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .checklist li{margin-left:18px;margin-bottom:6px;font-size:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="wm">CARACAL — WE SUPPORT ALL THE PLAYERS</div>
+    <h1>릴스 발행 사전 체크 · 하이록스 입문 가이드</h1>
+    <div class="status">
+      <span class="pill">상태: <b>발행 예약됨</b></span>
+      <span class="pill">예약 시각: <b>2026-06-10(수) 19:00 KST</b></span>
+      <span class="pill">채널: <b>@caracal_supply</b> (Instagram Reel)</span>
+      <span class="pill">검수: <b>발행 승인</b></span>
+      <span class="pill">발행 엔진: <b>Buffer 클라우드</b></span>
+    </div>
+    <p class="note">※ 이 페이지는 클라우드(Vercel)에 호스팅되어 맥이 꺼져 있어도, 폰에서도 열람 가능합니다. 실제 발행은 Buffer 서버가 예약 시각에 자동 수행합니다.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <section>
+    <div class="label">최종 영상 (1080×1920 · 86초)</div>
+    <div class="grid2">
+      <video controls preload="metadata" poster="/marketing-agent/output/cardnews-T1-reels/slide_01.png">
+        <source src="/marketing-agent/output/reels-T1.mp4" type="video/mp4">
+        브라우저가 영상을 지원하지 않습니다.
+      </video>
+      <div>
+        <div class="label">발행 캡션 + 해시태그</div>
+        <div class="caption" id="cap">불러오는 중…</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">슬라이드 10장</div>
+    <div class="slides">
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_01.png" alt="1"><div class="cap">01 커버</div></div>
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_02.png" alt="2"><div class="cap">02</div></div>
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_03.png" alt="3"><div class="cap">03</div></div>
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_04.png" alt="4"><div class="cap">04</div></div>
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_05.png" alt="5"><div class="cap">05</div></div>
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_06.png" alt="6"><div class="cap">06</div></div>
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_07.png" alt="7"><div class="cap">07</div></div>
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_08.png" alt="8"><div class="cap">08</div></div>
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_09.png" alt="9"><div class="cap">09</div></div>
+      <div><img src="/marketing-agent/output/cardnews-T1-reels/slide_10.png" alt="10"><div class="cap">10 클로징</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">발행 전 체크리스트</div>
+    <ul class="checklist">
+      <li>영상·캡션 내용 최종 확인 (오탈자/수치)</li>
+      <li>해시태그 8개, 안전 문구 포함 확인</li>
+      <li>예약 시각 2026-06-10(수) 19:00 KST 적절성</li>
+      <li>수정·보류가 필요하면 Buffer 대시보드에서 편집/삭제 (발행 전까지 가능)</li>
+    </ul>
+    <a class="btn" href="https://publish.buffer.com/" target="_blank" rel="noopener">Buffer에서 예약 게시물 확인/수정 →</a>
+  </section>
+</div>
+
+<script>
+fetch('/marketing-agent/output/caption-T1-reel.txt?v=' + Date.now())
+  .then(r => r.ok ? r.text() : Promise.reject())
+  .then(t => { document.getElementById('cap').textContent = t; })
+  .catch(() => { document.getElementById('cap').textContent = '캡션 파일을 불러오지 못했습니다.'; });
+</script>
+</body>
+</html>
