@@ -37,8 +37,8 @@
     <div class="wm">CARACAL — WE SUPPORT ALL THE PLAYERS</div>
     <h1>릴스 발행 사전 체크 · 하이록스 입문 가이드</h1>
     <div class="status">
-      <span class="pill">상태: <b>발행 예약됨</b></span>
-      <span class="pill">예약 시각: <b>2026-06-10(수) 19:00 KST</b></span>
+      <span class="pill">상태: <b id="st-status">발행 예약됨</b></span>
+      <span class="pill">예약 시각: <b id="st-due">2026-06-10(수) 19:00 KST</b></span>
       <span class="pill">채널: <b>@caracal_supply</b> (Instagram Reel)</span>
       <span class="pill">검수: <b>발행 승인</b></span>
       <span class="pill">발행 엔진: <b>Buffer 클라우드</b></span>
@@ -95,6 +95,15 @@ fetch('/marketing-agent/output/caption-T1-reel.txt?v=' + Date.now())
   .then(r => r.ok ? r.text() : Promise.reject())
   .then(t => { document.getElementById('cap').textContent = t; })
   .catch(() => { document.getElementById('cap').textContent = '캡션 파일을 불러오지 못했습니다.'; });
+
+// 최신 예약 상태를 reel-status.json에서 동적으로 반영(주간 헬퍼가 갱신)
+fetch('/reel-status.json?v=' + Date.now())
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(s => {
+    if (s.scheduled_human) document.getElementById('st-due').textContent = s.scheduled_human;
+    if (s.status) document.getElementById('st-status').textContent = (s.status === 'scheduled' ? '발행 예약됨' : s.status);
+  })
+  .catch(() => {}); // 파일 없으면 하드코딩 기본값 유지
 </script>
 </body>
 </html>

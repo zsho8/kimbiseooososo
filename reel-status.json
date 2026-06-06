@@ -1,0 +1,8 @@
+{
+  "status": "scheduled",
+  "scheduled_at": "2026-06-10T19:00:00+09:00",
+  "scheduled_human": "2026-06-10(수) 19:00 KST",
+  "title": "하이록스 입문 가이드",
+  "reel": "marketing-agent/output/reels-T1.mp4",
+  "caption": "marketing-agent/output/caption-T1-reel.txt"
+}
