@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CARACAL 릴스 음성 비교 — 가장 사람 같은 보이스 고르기</title>
+<style>
+  :root{--accent:#EC561A;--bg:#0f0f12;--card:#17171c;--line:#26262e;--txt:#f2f2f4;--sub:#9a9aa4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,'Apple SD Gothic Neo',sans-serif;line-height:1.6;padding:0 0 80px}
+  header{padding:28px 20px;border-bottom:1px solid var(--line)}
+  .wm{font-weight:800;letter-spacing:.18em;font-size:13px;color:var(--accent)}
+  h1{font-size:22px;margin-top:6px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  .sent{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:16px;font-size:15px;color:var(--sub)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:14px}
+  .card.before{border-color:#5a2b2b}
+  .card.pick{border-color:var(--accent)}
+  .name{font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+  .tag{font-size:11px;padding:3px 9px;border-radius:999px;background:#2a2a32;color:var(--sub)}
+  .tag.bad{background:#3a1f1f;color:#e88}
+  .tag.good{background:var(--accent);color:#fff}
+  .desc{font-size:13px;color:var(--sub);margin:3px 0 10px}
+  audio{width:100%}
+  .note{font-size:13px;color:var(--sub);margin-top:18px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="wm">CARACAL — 릴스 음성 개선</div>
+    <h1>가장 "사람 같은" 보이스를 골라주세요</h1>
+  </div>
+</header>
+<div class="wrap">
+  <div class="sent">📢 공통 문장: "요즘 SNS를 뜨겁게 달구는 운동, 하이록스. 달리기와 근력을 한 번에 몰아붙이는 하이브리드 레이스입니다. 끝까지 보면, 부상 안 당하는 법까지 알려드릴게요."</div>
+
+  <div class="card before">
+    <div class="name">기존 (Daniel) <span class="tag bad">현재·기계같음</span></div>
+    <div class="desc">영어 방송용 보이스 + 후처리 배속 1.08x → 외국인 억양·딱딱함</div>
+    <audio controls preload="none" src="/marketing-agent/output/voice-samples/daniel_old.mp3"></audio>
+  </div>
+
+  <div class="card pick">
+    <div class="name">A · Brian <span class="tag good">추천</span></div>
+    <div class="desc">깊고 편안한 남성 · 소셜미디어용 · 배속 제거(자연 속도)</div>
+    <audio controls preload="none" src="/marketing-agent/output/voice-samples/brian_m.mp3"></audio>
+  </div>
+
+  <div class="card">
+    <div class="name">B · Chris <span class="tag">남성</span></div>
+    <div class="desc">친근하고 캐주얼한 남성 · 대화체</div>
+    <audio controls preload="none" src="/marketing-agent/output/voice-samples/chris_m.mp3"></audio>
+  </div>
+
+  <div class="card">
+    <div class="name">C · Eric <span class="tag">남성</span></div>
+    <div class="desc">부드럽고 신뢰감 있는 남성</div>
+    <audio controls preload="none" src="/marketing-agent/output/voice-samples/eric_m.mp3"></audio>
+  </div>
+
+  <div class="card">
+    <div class="name">D · Sarah <span class="tag">여성</span></div>
+    <div class="desc">차분하고 확신 있는 여성</div>
+    <audio controls preload="none" src="/marketing-agent/output/voice-samples/sarah_f.mp3"></audio>
+  </div>
+
+  <div class="card">
+    <div class="name">E · Jessica <span class="tag">여성</span></div>
+    <div class="desc">밝고 따뜻한 여성</div>
+    <audio controls preload="none" src="/marketing-agent/output/voice-samples/jessica_f.mp3"></audio>
+  </div>
+
+  <p class="note">⚠️ 무료 ElevenLabs 한계로 모두 영어권 보이스가 한국어를 읽는 방식입니다(억양 일부 잔존). 네이티브 한국어가 필요하면 Gemini/OpenAI 키 또는 ElevenLabs 유료 전환이 필요합니다. 위 중 가장 자연스러운 걸 알려주시면 두 릴스(6/10·6/17)에 적용합니다.</p>
+</div>
+</body>
+</html>
